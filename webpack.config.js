@@ -34,7 +34,8 @@ module.exports = {
     extensions: ['.js'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      '@core': path.resolve(__dirname, 'src/core')
+      '@core': path.resolve(__dirname, 'src/core'),
+      '@scss': path.resolve(__dirname, 'src/scss')
     }
   },
   devtool: isDev && 'source-map',
@@ -85,7 +86,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: jsLoaders(),
-
       }
     ]
   }
