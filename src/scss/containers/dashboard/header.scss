@@ -1,0 +1,19 @@
+@import 'variables';
+@import '../../variables';
+@import '../../mixins';
+
+.dashboard__header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: $header-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $header-bgc;
+  box-shadow: $header-shadow;
+  z-index: 1000;
+
+
+}

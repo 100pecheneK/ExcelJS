@@ -1,0 +1,35 @@
+@import 'variables';
+@import '../../variables';
+@import '../../mixins';
+
+.dashboard__new {
+  margin-top: $header-height;
+  padding: 1.5rem;
+  background-color: $new-bgc;
+
+  &__view {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  &-create {
+    width: 160px;
+    height: 160px;
+    background-color: $white;
+    border-radius: $border-radius;
+    border: 1px solid $new-bgc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: $black;
+    text-align: center;
+
+    &:hover {
+      cursor: pointer;
+      color: $green;
+      border-color: $green;
+    }
+  }
+}
