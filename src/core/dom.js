@@ -1,3 +1,10 @@
+export class DomElementNotFound extends Error{
+  constructor(message) {
+    super(message)
+    this.name = 'DomElementNotFound'
+  }
+}
+
 class Dom {
   constructor(selector) {
     this._$el = typeof selector === 'string' ? document.querySelector(selector) : selector
@@ -55,7 +62,12 @@ class Dom {
 }
 
 export function $(selector) {
-  return new Dom(selector)
+  const domElement = new Dom(selector)
+  if (!domElement._$el) {
+    throw new DomElementNotFound(`Can't find element with selector "${selector}"`)
+  }
+
+  return domElement
 }
 
 $.create = (tagName, ...classes) => {
