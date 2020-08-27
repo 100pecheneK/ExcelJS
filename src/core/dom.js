@@ -1,7 +1,15 @@
+export class DomElementNotFound extends Error{
+  constructor(message) {
+    super(message)
+    this.name = 'DomElementNotFound'
+  }
+}
+
 class Dom {
   constructor(selector) {
     this._$el = typeof selector === 'string' ? document.querySelector(selector) : selector
   }
+
 
   html(html) {
     if (typeof html === 'string') {
@@ -31,10 +39,35 @@ class Dom {
   off(eventType, callback) {
     this._$el.removeEventListener(eventType, callback)
   }
+
+  closest(selector) {
+    return $(this._$el.closest(selector))
+  }
+
+  getCords() {
+    return this._$el.getBoundingClientRect()
+  }
+
+  get data() {
+    return this._$el.dataset
+  }
+
+  find(selector) {
+    return this._$el.querySelectorAll(selector)
+  }
+
+  css(styles = {}) {
+    Object.keys(styles).forEach(key => this._$el.style[key] = styles[key])
+  }
 }
 
 export function $(selector) {
-  return new Dom(selector)
+  const domElement = new Dom(selector)
+  if (!domElement._$el) {
+    throw new DomElementNotFound(`Can't find element with selector "${selector}"`)
+  }
+
+  return domElement
 }
 
 $.create = (tagName, ...classes) => {
@@ -43,4 +76,8 @@ $.create = (tagName, ...classes) => {
     classes.forEach(classs => el.classList.add(classs))
   }
   return $(el)
+}
+
+$.find = (selector) => {
+  return document.querySelectorAll(selector)
 }

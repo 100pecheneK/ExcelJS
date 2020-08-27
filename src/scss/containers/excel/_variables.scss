@@ -10,5 +10,6 @@ $row-height: 24px;
 
 // Color
 $cell-bgc-color: #f8f9fa;
+$select-color: #3c74ff;
 $cell-border: 1px solid #e2e3e3;
-$cell-outline: $cell-outline-width solid #3c74ff;
+$cell-outline: $cell-outline-width solid $select-color;
