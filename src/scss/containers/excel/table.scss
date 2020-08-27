@@ -11,11 +11,25 @@
   padding-bottom: $cell-outline-width;
 
   &__row {
+    $row: &;
     display: flex;
     min-height: 20px;
     height: $row-height;
 
+    #{$row}-number--resize, #{$row}__data-column--resize {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      opacity: 0;
+      background-color: $select-color;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
     &-number {
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -24,12 +38,22 @@
       border: $border;
       border-top: none;
       background-color: $cell-bgc-color;
+
+      &--resize {
+        left: 0;
+        height: 2px;
+
+        &:hover {
+          cursor: row-resize;
+        }
+      }
     }
 
     &__data {
       display: flex;
 
       &-column {
+        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -40,6 +64,15 @@
         border: $border;
         border-top: none;
         border-left: none;
+
+        &--resize {
+          top: 0;
+          width: 2px;
+
+          &:hover {
+            cursor: col-resize;
+          }
+        }
       }
 
       &-cell {

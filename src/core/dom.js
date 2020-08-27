@@ -3,6 +3,7 @@ class Dom {
     this._$el = typeof selector === 'string' ? document.querySelector(selector) : selector
   }
 
+
   html(html) {
     if (typeof html === 'string') {
       this._$el.innerHTML = html
@@ -31,6 +32,26 @@ class Dom {
   off(eventType, callback) {
     this._$el.removeEventListener(eventType, callback)
   }
+
+  closest(selector) {
+    return $(this._$el.closest(selector))
+  }
+
+  getCords() {
+    return this._$el.getBoundingClientRect()
+  }
+
+  get data() {
+    return this._$el.dataset
+  }
+
+  find(selector) {
+    return this._$el.querySelectorAll(selector)
+  }
+
+  css(styles = {}) {
+    Object.keys(styles).forEach(key => this._$el.style[key] = styles[key])
+  }
 }
 
 export function $(selector) {
@@ -43,4 +64,8 @@ $.create = (tagName, ...classes) => {
     classes.forEach(classs => el.classList.add(classs))
   }
   return $(el)
+}
+
+$.find = (selector) => {
+  return document.querySelectorAll(selector)
 }

@@ -1,22 +1,29 @@
 import {getIndentName} from '@core/utils'
 
 
-function createEmptyCell() {
+function createEmptyCell(_, index) {
   return `
-    <div class="excel__table__row__data-cell" contenteditable></div>
+    <div class="excel__table__row__data-cell" contenteditable data-col="${index}"></div>
   `
 }
 
-function createColumn(content) {
+function createColumn(content, index) {
   return `
-    <div class="excel__table__row__data-column">${content}</div>
+    <div class="excel__table__row__data-column" data-type="resizable" data-col="${index}"">
+        ${content}
+        <div class="excel__table__row__data-column--resize" data-resize="col"></div>
+    </div>
   `
 }
 
 function createRow(content, index = '') {
+  const numberContent = index && `
+    ${index}
+    <div class="excel__table__row-number--resize" data-resize="row"></div>
+  `
   return `
-    <div class="excel__table__row">
-        <div class="excel__table__row-number">${index}</div>
+    <div class="excel__table__row" ${index && 'data-type="resizable"'}>
+        <div class="excel__table__row-number">${numberContent}</div>
         <div class="excel__table__row__data">${content}</div>
     </div>
   `
