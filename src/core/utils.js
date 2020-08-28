@@ -32,3 +32,19 @@ export function getIndentName(indentNumber, firstCharCode = 65) {
 
   return out
 }
+
+/**
+ * Возвращает количество положительных чисел в массиве,
+ * равных разнице между start и end по модулю
+ * @param start - string number in sequence
+ * @param end
+ * @return {number[]}
+ */
+export function getRange(start, end) {
+  if (start > end) {
+    [end, start] = [start, end]
+  }
+  return new Array(end - start + 1)
+    .fill('')
+    .map((_, i) => start + i)
+}

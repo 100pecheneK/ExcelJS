@@ -1,4 +1,4 @@
-export class DomElementNotFound extends Error{
+export class DomElementNotFound extends Error {
   constructor(message) {
     super(message)
     this.name = 'DomElementNotFound'
@@ -6,6 +6,9 @@ export class DomElementNotFound extends Error{
 }
 
 class Dom {
+  /**
+   * @param {string|EventTarget} selector
+   */
   constructor(selector) {
     this._$el = typeof selector === 'string' ? document.querySelector(selector) : selector
   }
@@ -52,15 +55,61 @@ class Dom {
     return this._$el.dataset
   }
 
+  /**
+   * @param {string} selector
+   * @return {NodeListOf<Element>}
+   */
   find(selector) {
     return this._$el.querySelectorAll(selector)
+  }
+
+  /**
+   * @param {string} selector
+   * @return {Dom}
+   */
+  findOne(selector) {
+    return $(this._$el.querySelector(selector))
+  }
+
+  addClass(className) {
+    this._$el.classList.add(className)
+  }
+
+  removeClass(className) {
+    this._$el.classList.remove(className)
   }
 
   css(styles = {}) {
     Object.keys(styles).forEach(key => this._$el.style[key] = styles[key])
   }
+
+  /**
+   *
+   * @param {boolean} parse
+   * @return {{col: number, row: number}|*}
+   */
+  getDataId(parse = false) {
+    if (parse) {
+      const parsed = this.getDataId().split(':')
+      return {
+        row: +parsed[0],
+        col: +parsed[1]
+      }
+    }
+    return this.data.id
+  }
+
+  focus(){
+    this._$el.focus()
+    return this
+  }
 }
 
+/**
+ *
+ * @param {EventTarget} selector
+ * @return {Dom}
+ */
 export function $(selector) {
   const domElement = new Dom(selector)
   if (!domElement._$el) {
@@ -78,6 +127,18 @@ $.create = (tagName, ...classes) => {
   return $(el)
 }
 
+/**
+ * @param {string} selector
+ * @return {NodeListOf<HTMLElementTagNameMap[*]>}
+ */
 $.find = (selector) => {
   return document.querySelectorAll(selector)
+}
+
+/**
+ * @param {string} selector
+ * @return {Dom}
+ */
+$.findOne = (selector) => {
+  return $(document.querySelector(selector))
 }

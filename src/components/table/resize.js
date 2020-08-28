@@ -7,11 +7,11 @@ export {
 }
 
 /**
- * Изменяем размер колонки или строчки в зависимости от позиции курсора пользователя
- * @param $wrapper
- * @param event
+ * Изменяет размер колонки или строчки в зависимости от позиции курсора пользователя
+ * @param {MouseEvent} event
+ * @param {Dom} $wrapper
  */
-function resizeHandler($wrapper, event) {
+function resizeHandler(event, $wrapper) {
   const {resizeTargetType, ...resizeAttributes} = getResizeAttributes(event)
   if (resizeTargetType === 'col') {
     resizeCol({resizeAttributes, $wrapper})
@@ -22,7 +22,7 @@ function resizeHandler($wrapper, event) {
 
 /**
  * Возвращает True если присутствует data-resize у элемента в event.target
- * @param event
+ * @param {MouseEvent} event
  * @return {boolean}
  */
 function shouldResize(event) {

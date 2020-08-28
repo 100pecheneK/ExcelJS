@@ -1,15 +1,26 @@
 import {getIndentName} from '@core/utils'
 
 
-function createEmptyCell(_, index) {
-  return `
-    <div class="excel__table__row__data-cell" contenteditable data-col="${index}"></div>
-  `
+function createCell(row) {
+  return function (_, col) {
+    return `
+        <div class="excel__table__row__data-cell"
+         contenteditable 
+         data-col="${col}"
+         data-row="${row}" 
+         data-type="cell"
+         data-id="${row}:${col}"
+         ></div>
+    `
+  }
 }
 
 function createColumn(content, index) {
   return `
-    <div class="excel__table__row__data-column" data-type="resizable" data-col="${index}"">
+    <div class="excel__table__row__data-column"
+     data-type="resizable"
+      data-col="${index}"
+      >
         ${content}
         <div class="excel__table__row__data-column--resize" data-resize="col"></div>
     </div>
@@ -41,10 +52,10 @@ function generateFirstRow(rowsCount) {
     .join('')
 }
 
-function generateSecondRow(rowsCount) {
+function generateSecondRow(rowsCount, row) {
   return new Array(rowsCount)
     .fill('')
-    .map(createEmptyCell)
+    .map(createCell(row))
     .join('')
 }
 
@@ -57,10 +68,10 @@ export function createTable(rowsCount = 26) {
   rows.push(createRow(firstRow))
 
   // Generate seconds row with length = rowsCount
-  for (let i = 0; i < rowsCount; i++) {
-    const emptyCells = generateSecondRow(rowsCount)
+  for (let row = 0; row < rowsCount; row++) {
+    const emptyCells = generateSecondRow(rowsCount, row)
     // Create row includes cell with row number and empty cells
-    rows.push(createRow(emptyCells, i + 1))
+    rows.push(createRow(emptyCells, row + 1))
   }
 
   // Generate final table
