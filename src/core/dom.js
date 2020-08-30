@@ -73,18 +73,20 @@ class Dom {
 
   addClass(className) {
     this._$el.classList.add(className)
+    return this
   }
 
   removeClass(className) {
     this._$el.classList.remove(className)
+    return this
   }
 
   css(styles = {}) {
     Object.keys(styles).forEach(key => this._$el.style[key] = styles[key])
+    return this
   }
 
   /**
-   *
    * @param {boolean} parse
    * @return {{col: number, row: number}|*}
    */
@@ -99,9 +101,36 @@ class Dom {
     return this.data.id
   }
 
-  focus(){
+  /**
+   * @param {boolean=} focusEnd
+   * @return {Dom}
+   */
+  focus(focusEnd) {
     this._$el.focus()
+    if (focusEnd) {
+      const range = document.createRange()
+      range.selectNodeContents(this._$el)
+      range.collapse(false)
+      const sel = window.getSelection()
+      sel.removeAllRanges()
+      sel.addRange(range)
+    }
     return this
+  }
+
+  /**
+   *
+   * @param {string=} text
+   */
+  text(text) {
+    if (typeof text === 'string') {
+      this._$el.textContent = text
+      return this
+    }
+    if (this._$el.tagName.toLowerCase() === 'input') {
+      return this._$el.value.trim()
+    }
+    return this._$el.textContent.trim()
   }
 }
 

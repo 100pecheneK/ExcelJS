@@ -1,5 +1,5 @@
 export {
-  hotKeysHandler
+  nextCellHotKeysHandler
 }
 
 /**
@@ -8,22 +8,12 @@ export {
  * @param {Dom} $wrapper
  * @param {TableSelection} selection
  */
-function hotKeysHandler(event, $wrapper, selection) {
-  const keys = [
-    'Enter',
-    'Tab',
-    'ArrowLeft',
-    'ArrowRight',
-    'ArrowDown',
-    'ArrowUp'
-  ]
-  if (keys.includes(event.key) && !event.shiftKey) {
-    event.preventDefault()
-    const key = event.key
-    const currentCellId = selection.current.getDataId(true)
-    const $nextCell = $wrapper.findOne(nextCellSelector(key, currentCellId))
-    selection.select($nextCell)
-  }
+function nextCellHotKeysHandler(event, $wrapper, selection) {
+  event.preventDefault()
+  const key = event.key
+  const currentCellId = selection.current.getDataId(true)
+  const $nextCell = $wrapper.findOne(nextCellSelector(key, currentCellId))
+  selection.select($nextCell)
 }
 
 /**

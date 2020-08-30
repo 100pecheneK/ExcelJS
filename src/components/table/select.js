@@ -21,6 +21,7 @@ function selectHandler(event, $wrapper, selection) {
   } else {
     selection.select($target)
   }
+  return $target
 }
 
 /**
