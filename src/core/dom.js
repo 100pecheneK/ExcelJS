@@ -27,6 +27,13 @@ class Dom {
     return this
   }
 
+  getStyles(styles = []) {
+    return styles.reduce((res, style) => {
+      res[style] = this._$el.style[style]
+      return res
+    }, {})
+  }
+
   append(node) {
     if (node instanceof Dom) {
       node = node._$el
@@ -119,11 +126,10 @@ class Dom {
   }
 
   /**
-   *
    * @param {string=} text
    */
   text(text) {
-    if (typeof text === 'string') {
+    if (typeof text !== 'undefined') {
       this._$el.textContent = text
       return this
     }
@@ -131,6 +137,19 @@ class Dom {
       return this._$el.value.trim()
     }
     return this._$el.textContent.trim()
+  }
+
+  /**
+   * @param {string} name
+   * @param {string} value
+   * @return {string|Dom}
+   */
+  attr(name, value) {
+    if (typeof value !== 'undefined') {
+      this._$el.setAttribute(name, value)
+      return this
+    }
+    return this._$el.getAttribute(name)
   }
 }
 

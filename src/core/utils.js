@@ -1,3 +1,6 @@
+import {defaultStyles} from '@/constants'
+
+
 export function capitalize(string) {
   if (typeof string !== 'string') {
     return ''
@@ -47,4 +50,52 @@ export function getRange(start, end) {
   return new Array(end - start + 1)
     .fill('')
     .map((_, i) => start + i)
+}
+
+
+/**
+ *
+ * @param {string} key
+ * @param data
+ * @return {any}
+ */
+export function storage(key, data = null) {
+  if (!data) {
+    return JSON.parse(localStorage.getItem(key))
+  }
+  localStorage.setItem(key, JSON.stringify(data))
+}
+
+export function isEqual(a, b) {
+  if (typeof a === 'object' && typeof b === 'object') {
+    return JSON.stringify(a) === JSON.stringify(b)
+  }
+  return a === b
+}
+
+export function camelToDashCase(str) {
+  return str.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)
+}
+
+export function toInlineStyles(styles = {}) {
+  return Object.keys(styles)
+    .map(key => `${camelToDashCase(key)}: ${styles[key]}`)
+    .join(';')
+}
+
+/**
+ * @param {function} fn
+ * @param {number} ms
+ * @return {function(...[*]=)}
+ */
+export function debounce(fn, ms) {
+  let timeout
+  return function (...args) {
+    const later = () => {
+      clearTimeout(timeout)
+      fn.apply(this, args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, ms)
+  }
 }

@@ -1,3 +1,6 @@
+import {} from '@core/dom'
+
+
 export class Emitter {
   constructor() {
     this.listeners = {}

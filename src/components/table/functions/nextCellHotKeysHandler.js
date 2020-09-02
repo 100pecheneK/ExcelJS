@@ -1,5 +1,6 @@
 export {
-  nextCellHotKeysHandler
+  nextCellHotKeysHandler,
+  isNotExtraKeys
 }
 
 /**
@@ -14,6 +15,19 @@ function nextCellHotKeysHandler(event, $wrapper, selection) {
   const currentCellId = selection.current.getDataId(true)
   const $nextCell = $wrapper.findOne(nextCellSelector(key, currentCellId))
   selection.select($nextCell)
+}
+
+/**
+ *
+ * @param {KeyboardEvent} event
+ */
+function isNotExtraKeys({
+                          shiftKey,
+                          altKey,
+                          ctrlKey,
+                          metaKey
+                        }) {
+  return !(shiftKey || altKey || ctrlKey || metaKey)
 }
 
 /**

@@ -3,11 +3,22 @@ import {DomListener} from '@core/DomListener'
 
 export class ExcelComponent extends DomListener {
 
-  constructor($wrapper, options = {}) {
-    super($wrapper, options.listeners)
-    this.name = options.name || ''
-    this.emitter = options.emitter
+  constructor(
+    $wrapper,
+    {
+      listeners,
+      emitter,
+      store,
+      name = '',
+      subscriptions = []
+    }
+  ) {
+    super($wrapper, listeners)
+    this.name = name
+    this.emitter = emitter
     this.emitterUnsubs = []
+    this.store = store
+    this.subscriptions = subscriptions
     this.prepare()
   }
 
@@ -24,6 +35,16 @@ export class ExcelComponent extends DomListener {
   on(event, cb) {
     const unsub = this.emitter.on(event, cb)
     this.emitterUnsubs.push(unsub)
+  }
+
+  dispatch(action) {
+    this.store.dispatch(action)
+  }
+
+  storeChanged() {}
+
+  isSubscriber(key) {
+    return this.subscriptions.includes(key)
   }
 
   init() {

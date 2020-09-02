@@ -1,6 +1,3 @@
-import {$} from '@core/dom'
-
-
 export class TableSelection {
   static selectedClass = 'excel__table__row__data-cell--selected'
 
@@ -26,9 +23,17 @@ export class TableSelection {
     this._group = []
   }
 
+  get selectedIds() {
+    return this._group.map($el => $el.getDataId())
+  }
+
   selectGroup($group = []) {
     this.clear()
     this._group = $group
     this._group.forEach($el => $el.addClass(TableSelection.selectedClass))
+  }
+
+  applyStyle(style) {
+    this._group.forEach($el => $el.css(style))
   }
 }
