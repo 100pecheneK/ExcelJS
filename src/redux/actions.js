@@ -2,7 +2,7 @@ import {
   TABLE_CHANGE_TEXT,
   TABLE_CHANGE_STYLES,
   TABLE_RESIZE,
-  TABLE_APPLY_STYLE, HEADER_CHANGE_TITLE
+  TABLE_APPLY_STYLE, HEADER_CHANGE_TITLE, TABLE_UPDATE_DATE
 } from '@/redux/types'
 
 
@@ -35,5 +35,12 @@ export function changeHeaderTitle(title) {
   return {
     type: HEADER_CHANGE_TITLE,
     payload: title
+  }
+}
+
+export function updateDate(date) {
+  return {
+    type: TABLE_UPDATE_DATE,
+    payload: date.toJSON()
   }
 }

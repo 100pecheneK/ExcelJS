@@ -104,7 +104,6 @@ export class Table extends ExcelComponent {
       'ArrowDown',
       'ArrowUp'
     ]
-
     if (keys.includes(event.key) && isNotExtraKeys(event)) {
       nextCellHotKeysHandler(event, this.$wrapper, this.selection)
       this.onSelectCell()

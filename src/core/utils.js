@@ -16,7 +16,11 @@ export function capitalize(string) {
  * @return {string}
  */
 export function getIndentName(indentNumber, firstCharCode = 65) {
-  let b = [indentNumber], sp, out, i, div
+  let b = [indentNumber],
+    sp,
+    out,
+    i,
+    div
 
   sp = 0
   while (sp < b.length) {
@@ -45,13 +49,10 @@ export function getIndentName(indentNumber, firstCharCode = 65) {
  */
 export function getRange(start, end) {
   if (start > end) {
-    [end, start] = [start, end]
+    ;[end, start] = [start, end]
   }
-  return new Array(end - start + 1)
-    .fill('')
-    .map((_, i) => start + i)
+  return new Array(end - start + 1).fill('').map((_, i) => start + i)
 }
-
 
 /**
  *
@@ -79,7 +80,7 @@ export function camelToDashCase(str) {
 
 export function toInlineStyles(styles = {}) {
   return Object.keys(styles)
-    .map(key => `${camelToDashCase(key)}: ${styles[key]}`)
+    .map((key) => `${camelToDashCase(key)}: ${styles[key]}`)
     .join(';')
 }
 
@@ -98,4 +99,12 @@ export function debounce(fn, ms) {
     clearTimeout(timeout)
     timeout = setTimeout(later, ms)
   }
+}
+
+export function withFadeIn($el) {
+  return $el.addClasses('animate__animated animate__bounceInLeft')
+}
+
+export function preventDefault(e) {
+  e.preventDefault()
 }

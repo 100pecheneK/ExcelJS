@@ -2,7 +2,7 @@ import {
   TABLE_CHANGE_TEXT,
   TABLE_RESIZE,
   TABLE_CHANGE_STYLES,
-  TABLE_APPLY_STYLE, HEADER_CHANGE_TITLE
+  TABLE_APPLY_STYLE, HEADER_CHANGE_TITLE, TABLE_UPDATE_DATE
 } from '@/redux/types'
 
 
@@ -44,6 +44,11 @@ export function rootReducer(state, {type, payload}) {
       return {
         ...state,
         headerTitle: payload
+      }
+    case TABLE_UPDATE_DATE:
+      return {
+        ...state,
+        updated: payload
       }
     default:
       return state
