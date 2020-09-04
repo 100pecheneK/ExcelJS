@@ -62,6 +62,7 @@ class Dom {
     return this._$el.dataset
   }
 
+
   /**
    * @param {string} selector
    * @return {NodeListOf<Element>}
@@ -80,6 +81,11 @@ class Dom {
 
   addClass(className) {
     this._$el.classList.add(className)
+    return this
+  }
+
+  addClasses(classes) {
+    classes.split(' ').forEach(c => this._$el.classList.add(c))
     return this
   }
 
@@ -167,9 +173,10 @@ export function $(selector) {
   return domElement
 }
 
-$.create = (tagName, ...classes) => {
+$.create = (tagName, classes) => {
   const el = document.createElement(tagName)
   if (classes.length) {
+    classes = classes.split(' ')
     classes.forEach(classs => el.classList.add(classs))
   }
   return $(el)

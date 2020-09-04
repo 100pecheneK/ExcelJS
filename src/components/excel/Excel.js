@@ -1,11 +1,12 @@
 import {$} from '@core/dom'
 import {Emitter} from '@core/Emitter'
 import {StoreSubscriber} from '@core/StoreSubscriber'
+import * as actions from '@/redux/actions'
+import {preventDefault} from '@core/utils'
 
 
 export class Excel {
-  constructor(selector, {components = [], store}) {
-    this.$el = $(selector)
+  constructor({components = [], store}) {
     this.components = components
     this.store = store
     this.emitter = new Emitter()
@@ -29,8 +30,11 @@ export class Excel {
     return $root
   }
 
-  render() {
-    this.$el.append(this.getRoot())
+  init() {
+    if (process.env.NODE_ENV === 'production') {
+      document.addEventListener('contextmenu', preventDefault)
+    }
+    this.store.dispatch(actions.updateDate(new Date()))
     this.subscriber.subscribeComponents(this.components)
     this.components.forEach(component => component.init())
   }
@@ -38,5 +42,6 @@ export class Excel {
   destroy() {
     this.subscriber.unsubscribe()
     this.components.forEach(component => component.destroy())
+    document.removeEventListener('contextmenu', preventDefault)
   }
 }

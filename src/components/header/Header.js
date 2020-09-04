@@ -3,6 +3,7 @@ import {createHeader} from '@/components/header/template'
 import {$} from '@core/dom'
 import * as actions from '@/redux/actions'
 import {debounce} from '@core/utils'
+import {ActiveRoute} from '@core/routes/ActiveRoute'
 
 
 export class Header extends ExcelComponent {
@@ -11,7 +12,7 @@ export class Header extends ExcelComponent {
   constructor($wrapper, options) {
     super($wrapper, {
       name: 'Header',
-      listeners: ['input'],
+      listeners: ['input', 'click'],
       ...options
     })
   }
@@ -28,5 +29,18 @@ export class Header extends ExcelComponent {
   onInput(event) {
     const $target = $(event.target)
     this.dispatch(actions.changeHeaderTitle($target.text()))
+  }
+
+  onClick(event) {
+    const $target = $(event.target)
+    if ($target.data.button === 'remove') {
+      const remove = confirm('Уверены?')
+      if (remove) {
+        localStorage.removeItem('excel:' + ActiveRoute.param)
+        ActiveRoute.navigate('')
+      }
+    } else if ($target.data.button === 'exit') {
+      ActiveRoute.navigate('')
+    }
   }
 }
