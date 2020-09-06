@@ -1,6 +1,6 @@
 import {$} from '@core/dom'
 import {Emitter} from '@core/Emitter'
-import {StoreSubscriber} from '@core/StoreSubscriber'
+import {StoreSubscriber} from '@core/store/StoreSubscriber'
 import * as actions from '@/redux/actions'
 import {preventDefault} from '@core/utils'
 
