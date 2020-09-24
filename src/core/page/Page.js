@@ -1,6 +1,9 @@
 export class Page {
   constructor(params) {
-    this.params = params
+    // if (!params) {
+    //   throw new Error('No params')
+    // }
+    this.params = params||''
   }
 
   getRoot() {

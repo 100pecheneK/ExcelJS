@@ -1,5 +1,4 @@
-import {defaultStyles} from '@/constants'
-
+import { defaultStyles } from '@/constants'
 
 export function capitalize(string) {
   if (typeof string !== 'string') {
@@ -102,7 +101,7 @@ export function debounce(fn, ms) {
 }
 
 export function withFadeIn($el) {
-  return $el.addClasses('animate__animated animate__bounceInLeft')
+  return $el.addClasses('animate__animated animate__fadeIn')
 }
 
 export function preventDefault(e) {
