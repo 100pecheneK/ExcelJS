@@ -16,21 +16,21 @@ const jsLoaders = () => {
   return loaders
 }
 module.exports = {
-  entry: './index.js',
+  context: path.resolve(__dirname, 'src'),
+  mode: 'development',
+  entry: ['@babel/polyfill', './index.js'],
+  output: {
+    filename: filename('js'),
+    path: path.resolve(__dirname, 'dist')
+  },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.js'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
       '@core': path.resolve(__dirname, 'src/core'),
       '@scss': path.resolve(__dirname, 'src/scss')
     }
   },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
-  context: path.resolve(__dirname, 'src'),
-  mode: 'development',
   devtool: isDev && 'source-map',
   devServer: {
     port: 3000,
@@ -64,11 +64,6 @@ module.exports = {
   ],
   module: {
     rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
       {
         test: /\.(s[ac]ss|css)$/i,
         use: [
