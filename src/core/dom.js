@@ -150,7 +150,7 @@ class Dom {
    * @param {string} value
    * @return {string|Dom}
    */
-  attr(name, value) {
+  attr(name, value = undefined) {
     if (typeof value !== 'undefined') {
       this._$el.setAttribute(name, value)
       return this

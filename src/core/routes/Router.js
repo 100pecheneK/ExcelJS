@@ -1,5 +1,7 @@
 import { $ } from '@core/dom'
 import { ActiveRoute } from '@core/routes/ActiveRoute'
+import { Loader } from '@/components/Loader'
+import { withFadeIn } from '@core/utils'
 
 export class Router {
   /**
@@ -12,7 +14,7 @@ export class Router {
       throw new Error('Selector is not provided in Router')
     }
     this.$placeholder = $(selector)
-
+    this.loader = new Loader()
     this.routes = routes
     this.page = null
     this.changePageHandler = this.changePageHandler.bind(this)
@@ -25,14 +27,17 @@ export class Router {
     this.changePageHandler()
   }
 
-  changePageHandler() {
+  async changePageHandler() {
     if (this.page) {
       this.page.destroy()
     }
-    this.$placeholder.clear()
+    this.$placeholder.clear().append(this.loader)
     const Page = this.getPage()
     this.page = new Page(ActiveRoute.param)
-    this.$placeholder.append(this.page.getRoot())
+
+    const root = await this.page.getRoot()
+
+    this.$placeholder.clear().append(withFadeIn(root))
 
     this.page.afterRender()
   }

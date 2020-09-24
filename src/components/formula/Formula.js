@@ -1,7 +1,5 @@
 import {ExcelComponent} from '@core/ExcelComponent'
 import {$} from '@core/dom'
-import {TABLE_CHANGE_TEXT} from '@/redux/types'
-import * as actions from '@/redux/actions'
 
 
 export class Formula extends ExcelComponent {
@@ -29,6 +27,9 @@ export class Formula extends ExcelComponent {
     this.$formula = this.$wrapper.findOne('#formula')
     this.on('TABLE:SELECT', $cell => {
       this.$formula.text($cell.data.value)
+    })
+    this.on('TABLE:FORMULA_START', () => {
+      this.$formula.focus(true)
     })
   }
 

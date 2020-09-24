@@ -10,7 +10,7 @@ import {
 import {$} from '@core/dom'
 import * as actions from '@/redux/actions'
 import {defaultStyles} from '@/constants'
-import {parseCellText} from '@core/parseCellText'
+import {parseFormula} from '@core/parseCellText'
 
 
 export class Table extends ExcelComponent {
@@ -37,12 +37,14 @@ export class Table extends ExcelComponent {
 
     // Select first cell
     this.selection.select(this.$wrapper.findOne('[data-id="0:0"]'))
-
+    this.$wrapper.find('[data-letter]').forEach((e) => {
+      const element = $(e)
+      element.text(parseFormula(element))
+    })
     // Dispatch and emit select events
     this.onSelectCell()
 
     this.on('FORMULA:INPUT', text => {
-      console.log(text)
       this.onChangeCellTextValue(text)
     })
     this.on('FORMULA:DONE', () => {
@@ -76,12 +78,40 @@ export class Table extends ExcelComponent {
   onChangeCellTextValue(value) {
     this.selection.current
       .attr('data-value', value)
-      .text(parseCellText(value))
+      .text(parseFormula(this.selection.current))
 
     this.dispatch(actions.tableChangeText({
       id: this.selection.current.getDataId(),
       value
     }))
+
+    if (value.match(/^=/)) {
+      this.emit('TABLE:FORMULA_START')
+    }
+
+    // Parse users cells
+    const users = JSON.parse(this.selection.current.attr('data-users'))
+    if (users) {
+      let a = 0
+      this._parseUsersCells(users, a)
+    }
+
+  }
+
+  _parseUsersCells(users, a) {
+    if (a === 10) {
+      return
+    }
+    users.forEach(({l, n}) => {
+      const $userCell = $.findOne(`[data-letter="${l}"][data-row="${n}"]`)
+      const childrenUsers = JSON.parse($userCell.attr('data-users'))
+      $userCell.text(parseFormula($userCell))
+      if (childrenUsers && childrenUsers.length) {
+        a++
+        this._parseUsersCells(childrenUsers, a)
+      }
+    })
+
   }
 
   onMousedown(event) {

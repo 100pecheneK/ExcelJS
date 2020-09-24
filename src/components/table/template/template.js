@@ -23,6 +23,7 @@ function generateFirstRow(rowsCount, state) {
 function generateSecondRow(rowsCount, row, state) {
   return new Array(rowsCount)
     .fill('')
+    .map(getLetter)
     .map(createCell(row, state))
     .join('')
 }
