@@ -85,6 +85,10 @@ export class Table extends ExcelComponent {
       value
     }))
 
+    if (value.match(/^=/)) {
+      this.emit('TABLE:FORMULA_START')
+    }
+
     // Parse users cells
     const users = JSON.parse(this.selection.current.attr('data-users'))
     if (users) {

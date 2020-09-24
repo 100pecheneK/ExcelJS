@@ -28,6 +28,9 @@ export class Formula extends ExcelComponent {
     this.on('TABLE:SELECT', $cell => {
       this.$formula.text($cell.data.value)
     })
+    this.on('TABLE:FORMULA_START', () => {
+      this.$formula.focus(true)
+    })
   }
 
   storeChanged({currentText}) {

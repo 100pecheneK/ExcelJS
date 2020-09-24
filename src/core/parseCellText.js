@@ -1,4 +1,5 @@
 import {$} from '@core/dom'
+import {getCountOfDecimalPlaces} from '@core/utils'
 
 
 const ERROR_FORMULA_MESSAGE = '#Error#'
@@ -22,11 +23,13 @@ export function parseFormula($node) {
         }
         if (text) {
           formula.push(text)
+        } else {
+          formula.push(0)
         }
       })
       return parseFormulaText(formula.join(''))
     } catch (e) {
-      console.warn(`Bad formula in cell "${currentCellData.letter}:${currentCellData.number + 1}":`, e.message)
+      console.warn(`Bad formula in cell "${currentCellData.letter}:${+currentCellData.number + 1}":`, e.message)
       return ERROR_FORMULA_MESSAGE
     }
   }
@@ -54,10 +57,21 @@ function getOperandsOrThrowError(value) {
 
 function parseFormulaText(value = '') {
   try {
-    return eval(value)
+    const result = eval(value)
+    return parseResult(result)
   } catch (e) {
     throw new Error('Error execute')
   }
+}
+
+function parseResult(result) {
+  if (Number.isInteger(result)) {
+    return result
+  }
+  if (getCountOfDecimalPlaces(result) === 1) {
+    return result.toFixed(1)
+  }
+  return result.toFixed(2)
 }
 
 function isFormula(value) {

@@ -1,4 +1,5 @@
-import { defaultStyles } from '@/constants'
+import {defaultStyles} from '@/constants'
+
 
 export function capitalize(string) {
   if (typeof string !== 'string') {
@@ -106,4 +107,8 @@ export function withFadeIn($el) {
 
 export function preventDefault(e) {
   e.preventDefault()
+}
+
+export function getCountOfDecimalPlaces(x) {
+  return ~(x + '').indexOf('.') ? (x + '').split('.')[1].length : 0
 }
