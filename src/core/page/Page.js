@@ -1,8 +1,5 @@
 export class Page {
   constructor(params) {
-    // if (!params) {
-    //   throw new Error('No params')
-    // }
     this.params = params||''
   }
 

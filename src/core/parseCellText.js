@@ -1,11 +1,10 @@
-import {$} from '@core/dom'
-import {getCountOfDecimalPlaces} from '@core/utils'
-
+import { $ } from '@core/dom'
+import { getCountOfDecimalPlaces } from '@core/utils'
 
 const ERROR_FORMULA_MESSAGE = '#Error#'
 
 export function parseFormula($node) {
-  const {value, currentCellData} = getValue($node)
+  const { value, currentCellData } = getValue($node)
   if (isFormula(value)) {
     try {
       checkValue(value, currentCellData)
@@ -13,8 +12,8 @@ export function parseFormula($node) {
       const operators = parseOperators(value)
       const operands = getOperandsOrThrowError(value)
       const formula = []
-      operands.forEach(({letter, number}, i) => {
-        let {text, $cell} = getCellValue({letter, number, currentCellData})
+      operands.forEach(({ letter, number }, i) => {
+        let { text, $cell } = getCellValue({ letter, number, currentCellData })
         if (text && isFormula(text)) {
           text = parseFormula($cell)
         }
@@ -29,7 +28,12 @@ export function parseFormula($node) {
       })
       return parseFormulaText(formula.join(''))
     } catch (e) {
-      console.warn(`Bad formula in cell "${currentCellData.letter}:${+currentCellData.number + 1}":`, e.message)
+      console.warn(
+        `Bad formula in cell "${currentCellData.letter}:${
+          +currentCellData.number + 1
+        }":`,
+        e.message
+      )
       return ERROR_FORMULA_MESSAGE
     }
   }
@@ -53,7 +57,6 @@ function getOperandsOrThrowError(value) {
     throw new Error('Invalid formula')
   }
 }
-
 
 function parseFormulaText(value = '') {
   try {
@@ -86,24 +89,26 @@ function parseOperators(value) {
   return value.match(/[-+*\/]/g)
 }
 
-function getCellValue({letter, number, currentCellData}) {
+function getCellValue({ letter, number, currentCellData }) {
   if (letter && currentCellData) {
-    const $cellInFormula = $.findOne(`[data-letter="${letter}"][data-row="${number - 1}"]`)
+    const $cellInFormula = $.findOne(
+      `[data-letter="${letter}"][data-row="${number - 1}"]`
+    )
     let users = JSON.parse($cellInFormula.attr('data-users'))
     if (users) {
       let user = users.some(user => !(user.l === letter && user.n === number))
       if (!user) {
-        users.push({l: currentCellData.letter, n: currentCellData.number})
+        users.push({ l: currentCellData.letter, n: currentCellData.number })
       }
     } else {
-      users = [{l: currentCellData.letter, n: currentCellData.number}]
+      users = [{ l: currentCellData.letter, n: currentCellData.number }]
     }
 
     $cellInFormula.attr('data-users', JSON.stringify(users))
 
-    return {text: $cellInFormula.text(), $cell: $cellInFormula}
+    return { text: $cellInFormula.text(), $cell: $cellInFormula }
   } else {
-    return {text: number}
+    return { text: number }
   }
 }
 
@@ -115,19 +120,14 @@ function makeOperandObject(operand) {
   }
   return {
     letter: letter ? letter[0] : letter,
-    number: number ? number[0] : number
+    number: number ? number[0] : number,
   }
 }
 
 function getValue(val) {
   if (typeof val === 'string') {
-    return {value: val}
+    return { value: val }
   } else {
-
-    // let v = val.text()
-    // if (!isFormula(v)) {
-    //   v = val.attr('data-value')
-    // }
     let v = val.attr('data-value')
     const letter = val.attr('data-letter')
     const number = val.attr('data-row')
@@ -136,7 +136,7 @@ function getValue(val) {
       currentCellData: {
         letter,
         number,
-        pos: letter + number
+        pos: letter + number,
       },
     }
   }

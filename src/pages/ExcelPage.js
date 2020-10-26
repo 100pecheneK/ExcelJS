@@ -1,16 +1,14 @@
-import {Page} from '@core/page/Page'
-import {Excel} from '@/components/excel/Excel'
-import {Header} from '@/components/header/Header'
-import {Toolbar} from '@/components/toolbar/Toolbar'
-import {Formula} from '@/components/formula/Formula'
-import {Table} from '@/components/table/Table'
-import {createStore} from '@core/store/createStore'
-import {rootReducer} from '@/redux/rootReducer'
-import {debounce, storage} from '@core/utils'
-import {normalizeInitialState} from '@/redux/initialState'
-import {StateProcessor} from '@core/page/StateProcessor'
-import {LocalStorageClient} from '@/shared/LocalStorageClient'
-
+import { Page } from '@core/page/Page'
+import { Excel } from '@/components/excel/Excel'
+import { Header } from '@/components/header/Header'
+import { Toolbar } from '@/components/toolbar/Toolbar'
+import { Formula } from '@/components/formula/Formula'
+import { Table } from '@/components/table/Table'
+import { createStore } from '@core/store/createStore'
+import { rootReducer } from '@/redux/rootReducer'
+import { normalizeInitialState } from '@/redux/initialState'
+import { StateProcessor } from '@core/page/StateProcessor'
+import { LocalStorageClient } from '@/shared/LocalStorageClient'
 
 export class ExcelPage extends Page {
   constructor(param) {

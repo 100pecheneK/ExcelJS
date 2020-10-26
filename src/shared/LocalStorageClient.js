@@ -1,5 +1,4 @@
-import {storage} from '@core/utils'
-
+import { storage } from '@core/utils'
 
 function storageName(param) {
   return 'excel:' + param
@@ -16,8 +15,7 @@ export class LocalStorageClient {
   }
 
   get() {
-    // return Promise.resolve(storage(this.name))
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const state = storage(this.name)
       setTimeout(() => resolve(state), 1000)
     })

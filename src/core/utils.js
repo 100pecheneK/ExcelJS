@@ -1,6 +1,3 @@
-import {defaultStyles} from '@/constants'
-
-
 export function capitalize(string) {
   if (typeof string !== 'string') {
     return ''
@@ -41,7 +38,7 @@ export function getIndentName(indentNumber, firstCharCode = 65) {
 }
 
 /**
- * Возвращает количество положительных чисел в массиве,
+ * Возвращает массив положительных чисел в массиве,
  * равных разнице между start и end по модулю
  * @param start - string number in sequence
  * @param end
@@ -62,11 +59,19 @@ export function getRange(start, end) {
  */
 export function storage(key, data = null) {
   if (!data) {
-    return JSON.parse(localStorage.getItem(key))
+    const parsedData = JSON.parse(localStorage.getItem(key))
+    return parsedData
   }
   localStorage.setItem(key, JSON.stringify(data))
 }
 
+/**
+ * if a === b return true else false
+ * this is not deep equal for object!!
+ * @param a
+ * @param b
+ * @return {boolean}
+ */
 export function isEqual(a, b) {
   if (typeof a === 'object' && typeof b === 'object') {
     return JSON.stringify(a) === JSON.stringify(b)
@@ -75,12 +80,13 @@ export function isEqual(a, b) {
 }
 
 export function camelToDashCase(str) {
-  return str.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)
+  str = str[0].toLowerCase() + str.slice(1)
+  return str.replace(/([A-Z])/g, g => `-${g[0].toLowerCase()}`)
 }
 
 export function toInlineStyles(styles = {}) {
   return Object.keys(styles)
-    .map((key) => `${camelToDashCase(key)}: ${styles[key]}`)
+    .map(key => `${camelToDashCase(key)}: ${styles[key]}`)
     .join(';')
 }
 
@@ -102,7 +108,11 @@ export function debounce(fn, ms) {
 }
 
 export function withFadeIn($el) {
-  return $el.addClasses('animate__animated animate__fadeIn')
+  if ($el.addClasses) {
+    return $el.addClasses('animate__animated animate__fadeIn')
+  } else {
+    throw new Error('$el must have method "addClasses"')
+  }
 }
 
 export function preventDefault(e) {

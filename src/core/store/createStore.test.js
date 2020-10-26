@@ -23,6 +23,7 @@ describe('createStore:', () => {
 
     handler = jest.fn()
   })
+
   test('should return store object with methods: dispatch, subscribe and getState', () => {
     expect(store).toBeDefined()
     expect(store.dispatch).toBeDefined()
@@ -64,10 +65,10 @@ describe('createStore:', () => {
 
   test('should dispatch in async way', () => {
     return new Promise(resolve => {
-      setTimeout(()=>{
-        store.dispatch({type:'ADD'})
+      setTimeout(() => {
+        store.dispatch({type: 'ADD'})
       }, 500)
-      setTimeout(()=>{
+      setTimeout(() => {
         expect(store.getState().count).toBe(1)
         resolve()
       }, 500)

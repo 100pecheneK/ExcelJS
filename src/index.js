@@ -9,4 +9,3 @@ new Router('#app', {
   Dashboard: DashboardPage,
   Excel: ExcelPage
 })
-

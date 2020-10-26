@@ -1,11 +1,11 @@
-import { $ } from '@core/dom'
-import { ActiveRoute } from '@core/routes/ActiveRoute'
-import { Loader } from '@/components/Loader'
-import { withFadeIn } from '@core/utils'
+import {$} from '@core/dom'
+import {ActiveRoute} from '@core/routes/ActiveRoute'
+import {Loader} from '@/components/Loader'
+import {withFadeIn} from '@core/utils'
+
 
 export class Router {
   /**
-   *
    * @param selector
    * @param {{Dashboard, Excel}} routes
    */
@@ -28,17 +28,17 @@ export class Router {
   }
 
   async changePageHandler() {
+
     if (this.page) {
       this.page.destroy()
     }
+    // clear page nad add loader
     this.$placeholder.clear().append(this.loader)
+    // create new page
     const Page = this.getPage()
     this.page = new Page(ActiveRoute.param)
-
     const root = await this.page.getRoot()
-
     this.$placeholder.clear().append(withFadeIn(root))
-
     this.page.afterRender()
   }
 
