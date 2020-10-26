@@ -1,6 +1,7 @@
 {
   "name": "excel-js",
   "private": true,
+  "homepage": "https://100pechenek.github.io/ExcelJS/",
   "version": "1.0.0",
   "description": "Excel on JavaScript",
   "main": "index.js",
@@ -12,7 +13,9 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "test": "jest",
-    "test-watch": "jest --watch"
+    "test-watch": "jest --watch",
+    "deploy": "gh-pages -d dist",
+    "predeploy": "yarn run build"
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",
@@ -24,6 +27,7 @@
     "copy-webpack-plugin": "^6.0.3",
     "cross-env": "^7.0.2",
     "css-loader": "^4.2.1",
+    "gh-pages": "^3.1.0",
     "html-webpack-plugin": "^4.3.0",
     "jest": "^26.4.2",
     "mini-css-extract-plugin": "^0.10.0",
