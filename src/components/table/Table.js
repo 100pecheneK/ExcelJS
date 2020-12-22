@@ -1,4 +1,4 @@
-import {ExcelComponent} from '@core/ExcelComponent'
+import {SpreedsheetComponent} from '@core/SpreedsheetComponent'
 import createTable from '@/components/table/template'
 import {resizeHandler, shouldResize} from '@/components/table/functions/resize'
 import {TableSelection} from '@/components/table/TableSelection'
@@ -13,8 +13,8 @@ import {defaultStyles} from '@/constants'
 import {parseFormula} from '@core/parseCellText'
 
 
-export class Table extends ExcelComponent {
-  static className = 'excel__table'
+export class Table extends SpreedsheetComponent {
+  static className = 'spreedsheet__table'
 
   constructor($wrapper, options) {
     super($wrapper, {

@@ -1,7 +1,0 @@
-{
-  "editor.acceptSuggestionOnCommitCharacter": false,
-  "javascript.format.semicolons": "remove",
-  "javascript.preferences.quoteStyle": "single",
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "typescript.locale": "ru"
-}

@@ -1,6 +1,6 @@
 function createButton(button) {
   const classes = [
-    button.active ? 'excel__toolbar__button--active' : '',
+    button.active ? 'spreedsheet__toolbar__button--active' : '',
   ]
   const meta = `
     data-type="button"
@@ -8,7 +8,7 @@ function createButton(button) {
   `
   return `
       <div 
-      class="excel__toolbar__button ${classes.join(' ')}"
+      class="spreedsheet__toolbar__button ${classes.join(' ')}"
       ${meta}
       >
           <span ${meta} class="material-icons">${button.icon}</span>

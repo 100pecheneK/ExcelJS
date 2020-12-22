@@ -5,7 +5,7 @@ function getAllKeys() {
   const keys = []
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i)
-    if (key.includes('excel')) {
+    if (key.includes('spreedsheet')) {
       keys.push(key)
     }
   }
@@ -16,7 +16,7 @@ function getAllKeys() {
 function toHTML({headerTitle, updated, id}) {
   return `
       <li class="dashboard__table__list__record">
-          <a href="#excel/${id}">${headerTitle}</a>
+          <a href="#spreedsheet/${id}">${headerTitle}</a>
           <strong>
             ${new Date(updated).toLocaleDateString()}
             ${new Date(updated).toLocaleTimeString()}

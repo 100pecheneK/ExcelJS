@@ -1,5 +1,5 @@
 import { Page } from '@core/page/Page'
-import { Excel } from '@/components/excel/Excel'
+import { Spreedsheet } from '@/components/spreedsheet/Spreedsheet'
 import { Header } from '@/components/header/Header'
 import { Toolbar } from '@/components/toolbar/Toolbar'
 import { Formula } from '@/components/formula/Formula'
@@ -10,7 +10,7 @@ import { normalizeInitialState } from '@/redux/initialState'
 import { StateProcessor } from '@core/page/StateProcessor'
 import { LocalStorageClient } from '@/shared/LocalStorageClient'
 
-export class ExcelPage extends Page {
+export class SpreedsheetPage extends Page {
   constructor(param) {
     super(param)
     this.storeSub = null
@@ -23,20 +23,20 @@ export class ExcelPage extends Page {
 
     this.storeSub = store.subscribe(this.processor.listen)
 
-    this.excel = new Excel({
+    this.spreedsheet = new Spreedsheet({
       components: [Header, Toolbar, Formula, Table],
       store,
     })
 
-    return this.excel.getRoot()
+    return this.spreedsheet.getRoot()
   }
 
   afterRender() {
-    this.excel.init()
+    this.spreedsheet.init()
   }
 
   destroy() {
-    this.excel.destroy()
+    this.spreedsheet.destroy()
     this.storeSub.unsubscribe()
   }
 }

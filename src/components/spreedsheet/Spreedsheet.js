@@ -5,7 +5,7 @@ import * as actions from '@/redux/actions'
 import {preventDefault} from '@core/utils'
 
 
-export class Excel {
+export class Spreedsheet {
   constructor({components = [], store}) {
     this.components = components
     this.store = store
@@ -14,7 +14,7 @@ export class Excel {
   }
 
   getRoot() {
-    const $root = $.create('div', 'excel')
+    const $root = $.create('div', 'spreedsheet')
     const componentOptions = {
       emitter: this.emitter,
       store: this.store

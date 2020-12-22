@@ -1,5 +1,5 @@
 export class TableSelection {
-  static selectedClass = 'excel__table__row__data-cell--selected'
+  static selectedClass = 'spreedsheet__table__row__data-cell--selected'
 
   constructor() {
     this._group = []

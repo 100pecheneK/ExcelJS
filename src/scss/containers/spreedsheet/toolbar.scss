@@ -2,8 +2,10 @@
 @import '../../variables';
 @import '../../mixins';
 
-.excel__toolbar {
-  position: absolute;
+.spreedsheet__toolbar {
+  position: fixed;
+  background-color: #fff;
+  z-index: 100;
   height: $toolbar-height;
   left: 0;
   right: 0;

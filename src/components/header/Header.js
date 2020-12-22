@@ -1,4 +1,4 @@
-import {ExcelComponent} from '@core/ExcelComponent'
+import {SpreedsheetComponent} from '@core/SpreedsheetComponent'
 import {createHeader} from '@/components/header/template'
 import {$} from '@core/dom'
 import * as actions from '@/redux/actions'
@@ -6,8 +6,8 @@ import {debounce} from '@core/utils'
 import {ActiveRoute} from '@core/routes/ActiveRoute'
 
 
-export class Header extends ExcelComponent {
-  static className = 'excel__header'
+export class Header extends SpreedsheetComponent {
+  static className = 'spreedsheet__header'
 
   constructor($wrapper, options) {
     super($wrapper, {
@@ -36,7 +36,7 @@ export class Header extends ExcelComponent {
     if ($target.data.button === 'remove') {
       const remove = confirm('Уверены?')
       if (remove) {
-        localStorage.removeItem('excel:' + ActiveRoute.param)
+        localStorage.removeItem('spreedsheet:' + ActiveRoute.param)
         ActiveRoute.navigate('')
       }
     } else if ($target.data.button === 'exit') {

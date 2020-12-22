@@ -1,7 +1,7 @@
-import {ExcelComponent} from '@core/ExcelComponent'
+import {SpreedsheetComponent} from '@core/SpreedsheetComponent'
 
 
-export class ExcelStateComponent extends ExcelComponent {
+export class SpreedsheetStateComponent extends SpreedsheetComponent {
   get template() {
     return JSON.stringify(this.state, null, 2)
   }

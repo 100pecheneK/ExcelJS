@@ -2,10 +2,10 @@ import 'animate.css/animate.min.css'
 import './scss/index.scss'
 import {Router} from '@core/routes/Router'
 import {DashboardPage} from '@/pages/DashboardPage'
-import {ExcelPage} from '@/pages/ExcelPage'
+import {SpreedsheetPage} from '@/pages/SpreedsheetPage'
 
 
 new Router('#app', {
   Dashboard: DashboardPage,
-  Excel: ExcelPage
+  Spreedsheet: SpreedsheetPage
 })

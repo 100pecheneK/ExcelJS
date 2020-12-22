@@ -11,10 +11,10 @@ class Dashboard extends Page {
   }
 }
 
-class Excel extends Page {
+class Spreedsheet extends Page {
   getRoot() {
     const root = document.createElement('div')
-    root.innerHTML = 'Excel'
+    root.innerHTML = 'Spreedsheet'
     return $(root)
   }
 }
@@ -26,7 +26,7 @@ describe('Router:', () => {
     $root = document.createElement('div')
     router = new Router($root, {
       Dashboard,
-      Excel
+      Spreedsheet
     })
   })
 
@@ -44,11 +44,11 @@ describe('Router:', () => {
 
   })
 
-  test('should render Excel Page', async () => {
-    window.location.hash = 'excel'
+  test('should render Spreedsheet Page', async () => {
+    window.location.hash = 'spreedsheet'
     try {
       await router.changePageHandler()
-      expect($root.innerHTML).toBe('<div>Excel</div>')
+      expect($root.innerHTML).toBe('<div>Spreedsheet</div>')
     } catch (e) {
 
     }

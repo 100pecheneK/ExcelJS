@@ -7,7 +7,7 @@ import {withFadeIn} from '@core/utils'
 export class Router {
   /**
    * @param selector
-   * @param {{Dashboard, Excel}} routes
+   * @param {{Dashboard, Spreedsheet}} routes
    */
   constructor(selector, routes) {
     if (!selector) {
@@ -43,8 +43,8 @@ export class Router {
   }
 
   getPage() {
-    if (ActiveRoute.path.includes('excel')) {
-      return this.routes.Excel
+    if (ActiveRoute.path.includes('spreedsheet')) {
+      return this.routes.Spreedsheet
     }
     return this.routes.Dashboard
   }

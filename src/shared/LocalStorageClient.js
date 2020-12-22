@@ -1,7 +1,7 @@
 import { storage } from '@core/utils'
 
 function storageName(param) {
-  return 'excel:' + param
+  return 'spreedsheet:' + param
 }
 
 export class LocalStorageClient {

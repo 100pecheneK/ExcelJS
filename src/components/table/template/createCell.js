@@ -10,7 +10,7 @@ export default function createCell(row, {colState, dataState, stylesState}) {
     const text = dataState[id] || ''
     const styles = toInlineStyles({...defaultStyles, ...stylesState[id]})
     return `
-        <div class="excel__table__row__data-cell"
+        <div class="spreedsheet__table__row__data-cell"
          contenteditable 
          data-col="${col}"
          data-row="${row}" 

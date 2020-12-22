@@ -2,8 +2,9 @@
 @import '../../variables';
 @import '../../mixins';
 
-.excel__table {
+.spreedsheet__table {
   position: absolute;
+  z-index: 1;
   left: 0;
   right: 0;
   top: $header-height + $toolbar-height + $formula-height;

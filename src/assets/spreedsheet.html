@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <title>Light Spreadsheet</title>
+</head>
+<body>
+<div id="app">
+    <div class="spreedsheet">
+        <div class="spreedsheet__header">
+            <input type="text" value="Новая таблица" class="input spreedsheet__header__input"/>
+            <div>
+                <div class="spreedsheet__header__button">
+                    <span class="material-icons">exit_to_app</span>
+                </div>
+                <div class="spreedsheet__header__button">
+                    <span class="material-icons">delete</span>
+                </div>
+            </div>
+        </div>
+        <div class="spreedsheet__toolbar">
+            <div class="spreedsheet__toolbar__button">
+                <span class="material-icons">format_bold</span>
+            </div>
+            <div class="spreedsheet__toolbar__button">
+                <span class="material-icons">format_italic</span>
+            </div>
+            <div class="spreedsheet__toolbar__button">
+                <span class="material-icons">format_underline</span>
+            </div>
+            <div class="spreedsheet__toolbar__button">
+                <span class="material-icons">format_align_left</span>
+            </div>
+            <div class="spreedsheet__toolbar__button">
+                <span class="material-icons">format_align_center</span>
+            </div>
+            <div class="spreedsheet__toolbar__button">
+                <span class="material-icons">format_align_right</span>
+            </div>
+        </div>
+        <div class="spreedsheet__formula">
+            <div class="spreedsheet__formula__info">fx</div>
+            <div class="spreedsheet__formula__input" contenteditable spellcheck="false"></div>
+        </div>
+        <div class="spreedsheet__table">
+            <!-- First row -->
+            <div class="spreedsheet__table__row">
+                <div class="spreedsheet__table__row-info"></div>
+                <div class="spreedsheet__table__row__data">
+                    <div class="spreedsheet__table__row__data-column">A</div>
+                    <div class="spreedsheet__table__row__data-column">B</div>
+                    <div class="spreedsheet__table__row__data-column">C</div>
+                </div>
+            </div>
+            <!-- Seconds rows-->
+            <div class="spreedsheet__table__row">
+                <div class="spreedsheet__table__row-info">1</div>
+                <div class="spreedsheet__table__row__data">
+                    <div class="spreedsheet__table__row__data-cell spreedsheet__table__row__data-cell--selected"
+                         contenteditable>
+                        asdads
+                    </div>
+                    <div class="spreedsheet__table__row__data-cell" contenteditable>asdasd</div>
+                    <div class="spreedsheet__table__row__data-cell" contenteditable>123123</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

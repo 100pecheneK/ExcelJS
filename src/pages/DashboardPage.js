@@ -8,11 +8,11 @@ export class DashboardPage extends Page {
     return $.create('div', 'dashboard').html(
       `
         <div class="dashboard__header">
-            <h1>Dashboard</h1>
+            <h1>Light Spreadsheet</h1>
         </div>
         <div class="dashboard__new">
             <div class="dashboard__new dashboard__view">
-                    <a href="#excel/${now}" class="dashboard__new-create">
+                    <a href="#spreedsheet/${now}" class="dashboard__new-create">
                     Новая<br>таблица
                 </a>
             </div>
