@@ -13,7 +13,7 @@ export function parseFormula($node) {
       const operands = getOperandsOrThrowError(value)
       const formula = []
 
-      let isBitIngValues = false
+      let isBitIntValues = false
       operands.forEach(({ letter, number, isFac }, i) => {
         let { text, $cell } = getCellValue({ letter, number, currentCellData })
         if (text && isFormula(text)) {
@@ -31,7 +31,7 @@ export function parseFormula($node) {
           if (isFac) {
             text = handleFac(text)
             if (text > Number.MAX_SAFE_INTEGER) {
-              isBitIngValues = true
+              isBitIntValues = true
             }
           }
           formula.push(text)
@@ -39,10 +39,9 @@ export function parseFormula($node) {
           formula.push(0)
         }
       })
-      if (isBitIngValues) {
+      if (isBitIntValues) {
         formula.map(n => {
           if (isNaN(+n)) return n
-          console.log('-', n)
           return BigInt(n)
         })
       }
@@ -84,26 +83,30 @@ function getOperandsOrThrowError(value) {
 
 function parseFormulaText(value = '') {
   try {
-    const result = eval(value)
+    let result = eval(value)
+    console.log(result)
     if (result > Number.MAX_SAFE_INTEGER) {
-      throw new Error('Too large number')
+      result = BigInt(result)
     }
+    console.log(result)
     return parseResult(result)
   } catch (e) {
-    if (e.message === 'Too large number') {
-      throw new Error('Too large number')
-    }
+    console.log(e.message)
     throw new Error('Error execute')
   }
 }
 
 function parseResult(result) {
+  if (typeof result === 'bigint' || result > Number.MAX_SAFE_INTEGER) {
+    return result.toString()
+  }
   if (Number.isInteger(result)) {
     return result
   }
   if (getCountOfDecimalPlaces(result) === 1) {
     return result.toFixed(1)
   }
+
   return result.toFixed(2)
 }
 
