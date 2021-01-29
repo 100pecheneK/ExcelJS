@@ -1,5 +1,6 @@
 import { $ } from '@core/dom'
 import { getCountOfDecimalPlaces } from '@core/utils'
+import { factorial } from './utils'
 
 const ERROR_FORMULA_MESSAGE = '#Error#'
 
@@ -8,19 +9,28 @@ export function parseFormula($node) {
   if (isFormula(value)) {
     try {
       checkValue(value, currentCellData)
-
       const operators = parseOperators(value)
       const operands = getOperandsOrThrowError(value)
+      console.log('parseFormula -> operands', operands)
       const formula = []
-      operands.forEach(({ letter, number }, i) => {
+
+      operands.forEach(({ letter, number, isFac }, i) => {
         let { text, $cell } = getCellValue({ letter, number, currentCellData })
         if (text && isFormula(text)) {
           text = parseFormula($cell)
         }
         if (i !== 0) {
-          formula.push(operators[i - 1])
+          if (operators[i - 1] === '!') {
+            formula.push(operators[i])
+          } else {
+            formula.push(operators[i - 1])
+          }
         }
+
         if (text) {
+          if (isFac) {
+            text = handleFac(text)
+          }
           formula.push(text)
         } else {
           formula.push(0)
@@ -59,6 +69,7 @@ function getOperandsOrThrowError(value) {
 }
 
 function parseFormulaText(value = '') {
+  console.log('r', value)
   try {
     const result = eval(value)
     return parseResult(result)
@@ -82,7 +93,7 @@ function isFormula(value) {
 }
 
 function parseOperands(value) {
-  return value.match(/\w+/g)
+  return value.match(/\w+!*/g)
 }
 
 function parseOperators(value) {
@@ -105,22 +116,28 @@ function getCellValue({ letter, number, currentCellData }) {
     }
 
     $cellInFormula.attr('data-users', JSON.stringify(users))
-
     return { text: $cellInFormula.text(), $cell: $cellInFormula }
   } else {
     return { text: number }
   }
 }
-
+function handleFac(text) {
+  return String(factorial(text))
+}
 function makeOperandObject(operand) {
   const letter = operand.match(/[a-zA-Z]+/)
-  const number = operand.match(/\d+/)
+  let number = operand.match(/\d+!*/)
+  const isFac = number[0].match(/!/) !== null
+  if (isFac) {
+    number[0] = number[0].slice(0, -1)
+  }
   if (letter && !number) {
     throw new Error('Invalid formula: Bad cell reference')
   }
   return {
     letter: letter ? letter[0] : letter,
     number: number ? number[0] : number,
+    isFac,
   }
 }
 

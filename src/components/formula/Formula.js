@@ -29,7 +29,7 @@ export class Formula extends SpreedsheetComponent {
       this.$formula.text($cell.data.value)
     })
     this.on('TABLE:FORMULA_START', () => {
-      this.$formula.focus(true)
+      this.$formula.focus(false)
     })
   }
 

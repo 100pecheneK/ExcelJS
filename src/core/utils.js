@@ -122,3 +122,8 @@ export function preventDefault(e) {
 export function getCountOfDecimalPlaces(x) {
   return ~(x + '').indexOf('.') ? (x + '').split('.')[1].length : 0
 }
+
+export function factorial(n) {
+  n = +n
+  return n != 1 ? n * factorial(n - 1) : 1
+}
