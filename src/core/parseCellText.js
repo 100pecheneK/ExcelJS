@@ -54,7 +54,12 @@ function checkValue(value, currentCellData) {
   if (value === '=') {
     throw new Error('No formula found')
   }
-  if (value.slice(1) === currentCellData.pos) {
+  console.log(value, currentCellData)
+  const opObg = makeOperandObject(value.slice(1))
+  if (
+    opObg.letter === currentCellData.letter &&
+    +opObg.number === +currentCellData.number + 1
+  ) {
     throw new Error('Self reference')
   }
 }
@@ -69,7 +74,6 @@ function getOperandsOrThrowError(value) {
 }
 
 function parseFormulaText(value = '') {
-  console.log('r', value)
   try {
     const result = eval(value)
     return parseResult(result)
@@ -101,6 +105,7 @@ function parseOperators(value) {
 }
 
 function getCellValue({ letter, number, currentCellData }) {
+  console.log({ letter, number, currentCellData })
   if (letter && currentCellData) {
     const $cellInFormula = $.findOne(
       `[data-letter="${letter}"][data-row="${number - 1}"]`
@@ -116,7 +121,9 @@ function getCellValue({ letter, number, currentCellData }) {
     }
 
     $cellInFormula.attr('data-users', JSON.stringify(users))
-    return { text: $cellInFormula.text(), $cell: $cellInFormula }
+    const r = { text: $cellInFormula.text(), $cell: $cellInFormula }
+    console.log(r)
+    return r
   } else {
     return { text: number }
   }
