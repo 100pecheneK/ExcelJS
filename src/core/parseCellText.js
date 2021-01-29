@@ -11,9 +11,9 @@ export function parseFormula($node) {
       checkValue(value, currentCellData)
       const operators = parseOperators(value)
       const operands = getOperandsOrThrowError(value)
-      console.log('parseFormula -> operands', operands)
       const formula = []
 
+      let isBitIngValues = false
       operands.forEach(({ letter, number, isFac }, i) => {
         let { text, $cell } = getCellValue({ letter, number, currentCellData })
         if (text && isFormula(text)) {
@@ -30,12 +30,22 @@ export function parseFormula($node) {
         if (text) {
           if (isFac) {
             text = handleFac(text)
+            if (text > Number.MAX_SAFE_INTEGER) {
+              isBitIngValues = true
+            }
           }
           formula.push(text)
         } else {
           formula.push(0)
         }
       })
+      if (isBitIngValues) {
+        formula.map(n => {
+          if (isNaN(+n)) return n
+          console.log('-', n)
+          return BigInt(n)
+        })
+      }
       return parseFormulaText(formula.join(''))
     } catch (e) {
       console.warn(
@@ -54,7 +64,6 @@ function checkValue(value, currentCellData) {
   if (value === '=') {
     throw new Error('No formula found')
   }
-  console.log(value, currentCellData)
   const opObg = makeOperandObject(value.slice(1))
   if (
     opObg.letter === currentCellData.letter &&
@@ -76,8 +85,14 @@ function getOperandsOrThrowError(value) {
 function parseFormulaText(value = '') {
   try {
     const result = eval(value)
+    if (result > Number.MAX_SAFE_INTEGER) {
+      throw new Error('Too large number')
+    }
     return parseResult(result)
   } catch (e) {
+    if (e.message === 'Too large number') {
+      throw new Error('Too large number')
+    }
     throw new Error('Error execute')
   }
 }
@@ -105,7 +120,6 @@ function parseOperators(value) {
 }
 
 function getCellValue({ letter, number, currentCellData }) {
-  console.log({ letter, number, currentCellData })
   if (letter && currentCellData) {
     const $cellInFormula = $.findOne(
       `[data-letter="${letter}"][data-row="${number - 1}"]`

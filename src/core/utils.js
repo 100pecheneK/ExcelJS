@@ -124,10 +124,11 @@ export function getCountOfDecimalPlaces(x) {
 }
 
 export function factorial(n) {
-  let total = 1
-
-  for (let i = 0; i < +n; i++) {
-    total = total * (+n - i)
+  let total = BigInt(1)
+  let i = BigInt(0)
+  n = BigInt(n)
+  for (i; i < n; i++) {
+    total = total * (n - i)
   }
-  return total
+  return total.toString()
 }
