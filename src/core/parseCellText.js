@@ -103,11 +103,7 @@ function parseResult(result) {
   if (Number.isInteger(result)) {
     return result
   }
-  if (getCountOfDecimalPlaces(result) === 1) {
-    return result.toFixed(1)
-  }
-
-  return result.toFixed(2)
+  return result.toFixed(3)
 }
 
 function isFormula(value) {
